@@ -30,7 +30,7 @@
         var file = new File([img], fileName, { type: "image/png" });
 
         // Upload the file to the uploads folder using the GitHub API
-        fetch('https://api.github.com/repos/Ginawsy/Drawing_feedback/contents/' + fileName, {
+        fetch('https://api.github.com/repos/Ginawsy/Drawing_feedback/contents/data/' + fileName, {
           method: 'PUT',
           headers: {
             'Authorization': 'token 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',
