@@ -35,6 +35,7 @@
         fetch('https://api.github.com/repos/Ginawsy/Drawing_feedback/contents/data/' + fileName, {
           method: 'PUT',
           headers: {
+            'Accept': 'application/vnd.github+json',
             'Authorization': 'Bearer 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',
             'Content-Type': 'application/json'
           },
@@ -43,11 +44,7 @@
             content: base_string,
             branch: 'main'
           })
-        }).then(function(response) {
-          console.log('Image saved successfully!');
-        }).catch(function(error) {
-          console.error('Error saving image: ', error);
-        });
+        }).then((res) => res.json());
       }
     };
     
