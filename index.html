@@ -24,7 +24,7 @@
       show_countdown_trial_duration: true,
       on_finish: function(data){
         var img = new Image();
-        img.src = "data:image/png;base64," + data.png;
+        img.src = data.png;
         // Create a new file in the uploads folder with a unique name
         var fileName = Date.now() + ".png";
         var file = new File([img], fileName, { type: "image/png" });
