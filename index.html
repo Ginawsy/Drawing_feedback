@@ -23,28 +23,56 @@
       trial_duration: 30000,
       show_countdown_trial_duration: true,
       on_finish: function(data){
-        var img = new Image();
-        base = data.png;
-        var base_string = base.replace('data:image/png;base64,', '');
-        img.src = data.png;
-        // Create a new file in the uploads folder with a unique name
-        var fileName = Date.now() + ".png";
-        //var file = new File([img], fileName, { type: "image/png" });
-
-        // Upload the file to the uploads folder using the GitHub API
-        fetch('https://api.github.com/repos/Ginawsy/Drawing_feedback/contents/data/' + fileName, {
-          method: 'PUT',
+        const base64Data = data.png;
+        const folderPath = "data/";
+        const fileName = "test.png";
+        const authToken = "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";
+        // Step 1
+        const binaryData = atob(base64Data.split(',')[1]);
+        const blob = new Blob([binaryData], {type: 'image/png'});
+        // Step 2
+        const file = new File([blob], fileName, {type: "image/png"});
+        // Step 3
+        const formData = new FormData();
+        formData.append("file", file);
+        // Step 4
+        fetch(`https://api.github.com/repos/Ginawsy/Drawing_feedback/contents/${folderPath}/${fileName}`, {
+          method: "POST",
           headers: {
-            'Accept': 'application/vnd.github+json',
-            'Authorization': 'Bearer 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',
-            'Content-Type': 'application/json'
+            "Authorization": `token ${authToken}`,
+            "Content-Type": "application/json",
+            "Accept": "application/json"
           },
           body: JSON.stringify({
-            message: 'Added new image',
-            content: data.png,
-            branch: 'main'
-          })
-        }).then((res) => res.json());
+            message: `Add ${fileName}`,
+            content: formData,
+          }),
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
+//         var img = new Image();
+//         base = data.png;
+//         var base_string = base.replace('data:image/png;base64,', '');
+//         img.src = data.png;
+//         // Create a new file in the uploads folder with a unique name
+//         var fileName = Date.now() + ".png";
+//         //var file = new File([img], fileName, { type: "image/png" });
+
+//         // Upload the file to the uploads folder using the GitHub API
+//         fetch('https://api.github.com/repos/Ginawsy/Drawing_feedback/contents/data/' + fileName, {
+//           method: 'PUT',
+//           headers: {
+//             'Accept': 'application/vnd.github+json',
+//             'Authorization': 'Bearer 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',
+//             'Content-Type': 'application/json'
+//           },
+//           body: JSON.stringify({
+//             message: 'Added new image',
+//             content: data.png,
+//             branch: 'main'
+//           })
+//         }).then((res) => res.json());
       }
     };
     
