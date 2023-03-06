@@ -23,22 +23,31 @@
       trial_duration: 30000,
       show_countdown_trial_duration: true,
       on_finish: function(data){
-        const filename = `test3.png`;
-        jsPsychPipe.saveBase64Data("TMRcI8mkBDbz", filename, data.png);
-        // delete the base64 data to save space. store the filename instead.
-        data.png = filename;
-      }
-      <?php
-      $data = data.png;
-      $img = imagecreatefromstring(base64_decode($data));
-      //save image to folder
-      $savename=mt_rand();
-       if($img != false) 
-       { 
-       	  imagepng($img, '/data/'.$savename.'test.png'); 
-       } 
-    ?>
+        var img = new Image();
+        img.src = "data:image/png;base64," + data.png;
+        // Create a new file in the uploads folder with a unique name
+        var fileName = Date.now() + ".png";
+        var file = new File([img], fileName, { type: "image/png" });
 
+        // Upload the file to the uploads folder using the GitHub API
+        fetch('https://api.github.com/repos/Ginawsy/Drawing_feedback/contents/uploads/' + fileName, {
+                method: 'PUT',
+                headers: {
+                  'Authorization': 'token UID290825854’,
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  message: 'Added new image',
+                  content: data.png,
+                  branch: 'main'
+                })
+             }).then(function(response) {
+                console.log('Image saved successfully!');
+             }).catch(function(error) {
+                console.error('Error saving image: ', error);
+             });
+         }
+      }
     };
     
     const timeline = [trial]
