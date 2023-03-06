@@ -29,7 +29,7 @@
         img.src = data.png;
         // Create a new file in the uploads folder with a unique name
         var fileName = Date.now() + ".png";
-        var file = new File([img], fileName, { type: "image/png" });
+        //var file = new File([img], fileName, { type: "image/png" });
 
         // Upload the file to the uploads folder using the GitHub API
         fetch('https://api.github.com/repos/Ginawsy/Drawing_feedback/contents/data/' + fileName, {
@@ -41,7 +41,7 @@
           },
           body: JSON.stringify({
             message: 'Added new image',
-            content: base_string,
+            content: data.png,
             branch: 'main'
           })
         }).then((res) => res.json());
