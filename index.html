@@ -31,22 +31,21 @@
 
         // Upload the file to the uploads folder using the GitHub API
         fetch('https://api.github.com/repos/Ginawsy/Drawing_feedback/contents/uploads/' + fileName, {
-                method: 'PUT',
-                headers: {
-                  'Authorization': 'token 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',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  message: 'Added new image',
-                  content: data.png,
-                  branch: 'main'
-                })
-             }).then(function(response) {
-                console.log('Image saved successfully!');
-             }).catch(function(error) {
-                console.error('Error saving image: ', error);
-             });
-         }
+          method: 'PUT',
+          headers: {
+            'Authorization': 'token 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',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'Added new image',
+            content: data.png,
+            branch: 'main'
+          })
+        }).then(function(response) {
+          console.log('Image saved successfully!');
+        }).catch(function(error) {
+          console.error('Error saving image: ', error);
+        });
       }
     };
     
