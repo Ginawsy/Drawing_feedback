@@ -27,7 +27,7 @@
          var img = new Image();
          base = data.png;
          var base_string = base.replace('data:image/png;base64,', '');
-         img.src = data.png;
+         img.src = base;
          console.log(img);
 
          // Create a new file in the uploads folder with a unique name
