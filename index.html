@@ -28,11 +28,12 @@
          base = data.png;
          var base_string = base.replace('data:image/png;base64,', '');
          img.src = data.png;
+         console.log(img);
 
          // Create a new file in the uploads folder with a unique name
-         var fileName = Date.now() + ".png";
-         var file = new File([img], fileName, { type: "image/png" });
-         console.log(file);
+//          var fileName = Date.now() + ".png";
+//          var file = new File([img], fileName, { type: "image/png" });
+//          console.log(file);
 //         // Upload the file to the uploads folder using the GitHub API
 //         fetch('https://api.github.com/repos/Ginawsy/Drawing_feedback/contents/data/' + fileName, {
 //           method: 'PUT',
