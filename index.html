@@ -23,10 +23,12 @@
       trial_duration: 30000,
       show_countdown_trial_duration: true,
       on_finish: function(data){
+        const mySecret = process.env.MY_SECRET;
+        console.log(mySecret);
         var base64Data = data.png;
         var folderPath = "data";
         var fileName = "test.png";
-        var authToken = "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";
+        var authToken = mySecret;
         // Step 1
         var binaryData = atob(base64Data.split(',')[1]);
         var blob = new Blob([binaryData], {type: 'image/png'});
@@ -36,6 +38,7 @@
         var formData = new FormData();
         formData.append("file", file);
         // Step 4
+        
         fetch(`https://api.github.com/repos/Ginawsy/Drawing_feedback/contents/${folderPath}/${fileName}`, {
           method: "POST",
           headers: {
