@@ -23,7 +23,7 @@
       trial_duration: 30000,
       show_countdown_trial_duration: true,
       on_finish: function(data){
-        const mySecret = process.env.MY_SECRET;
+        const mySecret = window.secret.MY_SECRET;
         console.log(mySecret);
         var base64Data = data.png;
         var folderPath = "data";
