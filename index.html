@@ -25,10 +25,12 @@
       on_finish: function(data){
         
          var picture = new Image();
+         picture.id = 'practice_image';
          base = data.png;
          //var base_string = base.replace('data:image/png;base64,', '');
          picture.src = base;
          console.log(picture);
+         console.log(practice_image);
       }
     };
     
