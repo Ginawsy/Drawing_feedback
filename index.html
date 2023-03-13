@@ -14,23 +14,15 @@
   <script>
 
     const jsPsych = initJsPsych();
-    
-    function base64ToPng(base64Image) {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = base64Image;
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          canvas.width = img.width;
-          canvas.height = img.height;
-          const ctx = canvas.getContext("2d");
-          ctx.drawImage(img, 0, 0);
-          const pngImage = canvas.toDataURL("image/png");
-          resolve(pngImage);
-        };
-        img.onerror = reject;
-      });
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, {type:mime});
     }
+   
     
     const trial = {
       type: jsPsychSketchpad,
@@ -39,10 +31,9 @@
       background_image: 'img/Image1.png',
       trial_duration: 30000,
       show_countdown_trial_duration: true,
-      on_finish: function(data){
-        base64ToPng(data.png).then((pngImage) => {
-        console.log(pngImage);
-        });
+      on_finish: function(data){ 
+          var file = dataURLtoFile(data.png, 'a.png');
+          console.log(file);
 //          var picture = new Image();
 //          picture.id = 'practice_image';
 //          base = data.png;
