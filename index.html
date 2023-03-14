@@ -14,15 +14,6 @@
   <script>
 
     const jsPsych = initJsPsych();
-    function dataURLtoFile(dataurl, filename) {
-        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-        while(n--){
-            u8arr[n] = bstr.charCodeAt(n);
-        }
-        return new File([u8arr], filename, {type:mime});
-    }
-   
     
     const trial = {
       type: jsPsychSketchpad,
@@ -32,15 +23,9 @@
       trial_duration: 30000,
       show_countdown_trial_duration: true,
       on_finish: function(data){ 
-          var file = dataURLtoFile(data.png, 'a.png');
-          console.log(file);
-//          var picture = new Image();
-//          picture.id = 'practice_image';
-//          base = data.png;
-//          //var base_string = base.replace('data:image/png;base64,', '');
-//          picture.src = base;
-//          console.log(picture);
-//          console.log(practice_image);
+        var image = new Image();
+        image.src = data.png;
+        document.body.appendChild(image);
       }
     };
     
